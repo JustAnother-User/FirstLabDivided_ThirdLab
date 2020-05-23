@@ -7,6 +7,16 @@ using namespace std;
 
 const size_t SCREEN_WIDTH = 80;
 const size_t MAX_ASTERISK = SCREEN_WIDTH - 3 - 1;
+
+vector<double>
+input_numbers(size_t count) {
+    vector<double> result(count);
+    for (size_t i = 0; i < count; i++) {
+        cin >> result[i];
+    }
+    return result;
+}
+
 int main()
 {
     srand(time(0));
@@ -20,14 +30,7 @@ size_t bin_count;
 cerr << "Enter bin count: ";
 cin >> bin_count;
 
-
-vector<double> numbers(number_count);
-for (size_t i=0;i<number_count;i++)
-{
-    cin>>numbers[i];
-  //numbers[i]=1+rand()%10;
-  //cout<<numbers[i]<<' ';
-}
+const auto numbers = input_numbers(number_count);
 
 
     //Задание варианта
