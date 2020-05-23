@@ -5,8 +5,6 @@
 
 using namespace std;
 
-const size_t SCREEN_WIDTH = 80;
-const size_t MAX_ASTERISK = SCREEN_WIDTH - 3 - 1;
 
 vector<double> input_numbers
 (size_t count)
@@ -30,6 +28,7 @@ void find_minmax
     if (x < min)
         {
         min = x;
+
         }
     else if (x > max)
         {
@@ -40,7 +39,7 @@ void find_minmax
 
 
 void make_histogram(vector<double> numbers,double min,double max,
-                    vector <size_t> bins,
+                    vector<size_t>& bins,
                     size_t number_count,size_t bin_count)
 {
     size_t bin_index=0;
@@ -64,50 +63,49 @@ if(min==max)
     bins.resize(1);
     bins[0]=number_count;
     }
+
 }
 
 
-void show_histogram_text(vector <size_t> bins,size_t bin_count)
+void show_histogram_text(vector <size_t> bins)
 {
 
     //Масштабирование
+const size_t SCREEN_WIDTH = 80;
+const size_t MAX_ASTERISK = SCREEN_WIDTH - 4 - 1;
 
-    double max_count = bins[0];
-for (double x : bins)
-{
-    if (x > max_count)
-    {
-        max_count = x;
-    }
-}
+    size_t max_count = 0;
 
-vector <size_t> height(bin_count,0);
-
-for(size_t i=0;i<bin_count;i++){
-
-height[i] = MAX_ASTERISK * (static_cast<double>(bins[i]) / max_count);
-
-}
-    //Вывод
-
-for(size_t i=0 ;i<bin_count;i++)
-{
-   // if(bins[i]<1000){ cout<<' ';
-    if(bins[i]<100){
-        cout<<' ';
-        if(bins[i]<10){
-            cout<<' ';
+    for (size_t count : bins) {
+        if (count > max_count) {
+            max_count = count;
         }
     }
-  //  }
-    cout<<bins[i]<<'|';
-    for(size_t j=0;j<height[i];j++)
-    {
-        cout<<'*';
+    const bool scaling_needed = max_count > MAX_ASTERISK;
+
+    for (size_t bin : bins) {
+        if (bin < 100) {
+            cout << ' ';
+        }
+        if (bin < 10) {
+            cout << ' ';
+        }
+        cout << bin << "|";
+
+        size_t height = bin;
+        if (scaling_needed) {
+            const double scaling_factor = (double)MAX_ASTERISK / max_count;
+            height = (size_t)(bin * scaling_factor);
+        }
+
+        for (size_t i = 0; i < height; i++) {
+            cout << '*';
+        }
+        cout << '\n';
     }
-    if (height[i]<76)cout<<"\n";
+
 }
-}
+
 
 int main()
 {
@@ -121,6 +119,7 @@ cin >> number_count;
 size_t bin_count;
 cerr << "Enter bin count: ";
 cin >> bin_count;
+
 
 const auto numbers = input_numbers(number_count);
 
@@ -137,7 +136,7 @@ find_minmax(numbers,min,max);
 make_histogram(numbers,min,max,bins,number_count,bin_count);
 
 
-show_histogram_text(bins,bin_count);
+show_histogram_text(bins);
 
 
     return 0;
