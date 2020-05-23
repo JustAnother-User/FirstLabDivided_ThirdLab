@@ -8,13 +8,33 @@ using namespace std;
 const size_t SCREEN_WIDTH = 80;
 const size_t MAX_ASTERISK = SCREEN_WIDTH - 3 - 1;
 
-vector<double>
-input_numbers(size_t count) {
+vector<double> input_numbers
+(size_t count)
+{
     vector<double> result(count);
-    for (size_t i = 0; i < count; i++) {
+    for (size_t i = 0; i < count; i++)
+    {
         cin >> result[i];
     }
     return result;
+}
+
+void find_minmax
+(vector<double> numbers, double& min, double& max)
+{
+    min = numbers[0];
+    max = numbers[0];
+   for (double x : numbers)
+    {
+    if (x < min)
+        {
+        min = x;
+        }
+    else if (x > max)
+        {
+        max = x;
+        }
+    }
 }
 
 int main()
@@ -52,20 +72,8 @@ const auto numbers = input_numbers(number_count);
     // Вычисление,обработка вторичных переменных(промежуточных)
 vector<size_t> bins(bin_count, 0);
 
-
-double min = numbers[0];
-double max = numbers[0];
-for (double x : numbers)
-{
-    if (x < min)
-    {
-        min = x;
-    }
-    else if (x > max)
-    {
-        max = x;
-    }
-}
+double min;
+double max;
 
 size_t bin_index=0;
 
