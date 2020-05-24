@@ -7,7 +7,8 @@ using namespace std;
 
 void svg_begin (double width, double height);
 void svg_text(double left, double baseline, string text);
-void svg_rect(double x, double y, double width, double height);
+void svg_rect(double x, double y, double width, double height,
+        string stroke = "black", string fill = "black");
 void svg_end();
 
 vector<double> input_numbers
@@ -113,10 +114,31 @@ const size_t MAX_ASTERISK = SCREEN_WIDTH - 4 - 1;
 
 void
 show_histogram_svg(const vector<size_t>& bins) {
-    svg_begin(400, 300);
-    svg_text(20,20,to_string(bins[0]));
-    svg_rect(50, 0, bins[0] * 10, 30);
+
+const auto IMAGE_WIDTH = 400;
+const auto IMAGE_HEIGHT = 300;
+const auto TEXT_LEFT = 20;
+const auto TEXT_BASELINE = 20;
+const auto TEXT_WIDTH = 50;
+const auto BIN_HEIGHT = 30;
+const auto BLOCK_WIDTH = 10;
+
+
+    svg_begin(IMAGE_WIDTH, IMAGE_HEIGHT);
+
+
+    double top = 0;
+for (size_t bin : bins) {
+    const double bin_width = BLOCK_WIDTH * bin;
+    svg_text(TEXT_LEFT, top + TEXT_BASELINE, to_string(bin));
+    svg_rect(TEXT_WIDTH, top, bin_width, BIN_HEIGHT,"red","#ffeeee");
+    top += BIN_HEIGHT;
+}
+
+
     svg_end();
+
+
 }
 
 
@@ -134,12 +156,13 @@ void svg_begin
 
 void svg_text
 (double left, double baseline, string text) {
-    cout << "<text x='" << left << "' y='" << baseline << "'>anything you want</text>";}
+    cout << "<text x='" << left << "' y='" << baseline << "'>"<<text<<"</text>";}
 
 
-void svg_rect(double x, double y, double width, double height)
+void svg_rect(double x, double y, double width, double height,
+        string stroke , string fill)
 {
-    cout<< "<rect x = '"<<x<<"' y = '"<<y<<"' width= '"<<width<<"' height= '"<<height<<"'/> ";
+    cout<< "<rect x = '"<<x<<"' y = '"<<y<<"' width= '"<<width<<"' height= '"<<height<<"' stroke= '"<<stroke<<"' fill= '"<<fill<<"'/> ";
 }
 
 
