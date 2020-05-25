@@ -2,14 +2,7 @@
 #include <math.h>
 #include <ctime>
 #include "histogram.h"
-
-using namespace std;
-
-void svg_begin (double width, double height);
-void svg_text(double left, double baseline, string text);
-void svg_rect(double x, double y, double width, double height,
-        string stroke = "black", string fill = "black");
-void svg_end();
+#include "svg.h"
 
 vector<double> input_numbers
 (size_t count)
@@ -103,35 +96,6 @@ for (size_t bin : bins)
 
 }
 
-
-void svg_begin
-(double width, double height) {
-
-    cout << "<?xml version='1.0' encoding='UTF-8'?>\n";
-    cout << "<svg ";
-    cout << "width='" << width << "' ";
-    cout << "height='" << height << "' ";
-    cout << "viewBox='0 0 " << width << " " << height << "' ";
-    cout << "xmlns='http://www.w3.org/2000/svg'>\n";
-}
-
-
-void svg_text
-(double left, double baseline, string text) {
-    cout << "<text x='" << left << "' y='" << baseline << "'>"<<text<<"</text>";}
-
-
-
-void svg_rect(double x, double y, double width, double height,
-        string stroke , string fill)
-{
-    cout<< "<rect x = '"<<x<<"' y = '"<<y<<"' width= '"<<width<<"' height= '"<<height<<"' stroke= '"<<stroke<<"' fill= '"<<fill<<"'/> ";
-}
-
-
-void svg_end() {
-    cout << "</svg>\n";
-}
 
 
 int main()
