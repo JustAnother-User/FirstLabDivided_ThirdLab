@@ -15,6 +15,17 @@ vector<double> input_numbers
     return result;
 }
 
+void input_colors(vector<string>& stroke,vector<string>& fill,size_t bin_count)
+{
+    for (string x: stroke)
+    {
+    string current_color;
+    cerr<<"enter stroke color:";
+    cin>>current_color;
+
+    }
+}
+
 
 void make_histogram(vector<double> numbers,double min,double max,
                     vector<size_t>& bins,
@@ -117,6 +128,8 @@ const auto numbers = input_numbers(number_count);
 
 vector<string> stroke(bin_count,"red");
 vector<string> fill(bin_count,"#ffeeee");
+
+input_colors(stroke,fill,bin_count);
 
     // Вычисление,обработка вторичных переменных(промежуточных)
 vector<size_t> bins(bin_count, 0);
