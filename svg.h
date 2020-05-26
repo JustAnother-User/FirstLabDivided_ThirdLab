@@ -1,3 +1,4 @@
+#pragma once
 #ifndef SVG_H_INCLUDED
 #define SVG_H_INCLUDED
 

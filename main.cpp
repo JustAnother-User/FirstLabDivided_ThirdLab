@@ -1,9 +1,13 @@
+
 #include <iostream>
 #include <math.h>
 #include <ctime>
 #include <cstring>
 #include "histogram.h"
+#include "colors.h"
 #include "svg.h"
+
+
 
 vector<double> input_numbers
 (size_t count)
@@ -16,26 +20,6 @@ vector<double> input_numbers
     return result;
 }
 
-void input_colors(vector<string>& stroke,vector<string>& fill,size_t bin_count)
-{
-    for (size_t i=0;i<bin_count;i++)
-    {
-    string current_stroke;
-    cerr<<"enter stroke color:";
-    cin>>current_stroke;
-    if(current_stroke[0]=='#')
-        {
-            stroke[i]=current_stroke;
-        }
-    string current_fill;
-    cerr<<"enter stroke color:";
-    cin>>current_fill;
-    if(current_fill[0]=='#')
-        {
-            fill[i]=current_fill;
-        }
-    }
-}
 
 
 void make_histogram(vector<double> numbers,double min,double max,
@@ -67,8 +51,10 @@ if(min==max)
 }
 
 
-void
-show_histogram_svg(const vector<size_t>& bins,size_t bin_count,const vector<string>& stroke,const vector<string>& fill )
+
+void show_histogram_svg
+(const vector<size_t>& bins,size_t bin_count,
+ const vector<string>& stroke,const vector<string>& fill )
 {
 
 const auto IMAGE_WIDTH = 400;
@@ -123,7 +109,8 @@ for (size_t i=0;i<bin_count;i++)
 int main()
 {
     srand(time(0));
-    // Ввод,объявление первичных переменных(вводных)
+
+
 size_t number_count;
 cerr << "Enter number count: ";
 cin >> number_count;
@@ -140,9 +127,11 @@ const auto numbers = input_numbers(number_count);
 vector<string> stroke(bin_count,"red");
 vector<string> fill(bin_count,"#ffeeee");
 
+
+
 input_colors(stroke,fill,bin_count);
 
-    // Вычисление,обработка вторичных переменных(промежуточных)
+
 vector<size_t> bins(bin_count, 0);
 
 
