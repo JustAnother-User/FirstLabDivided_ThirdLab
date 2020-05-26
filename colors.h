@@ -1,6 +1,7 @@
 #pragma once
 #ifndef COLORS_H_INCLUDED
 #define COLORS_H_INCLUDED
+
 #include <cstring>
 #include <vector>
 #include <iostream>

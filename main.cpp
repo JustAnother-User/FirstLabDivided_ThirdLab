@@ -1,13 +1,14 @@
 
 #include <iostream>
 #include <math.h>
-#include <ctime>
 #include <cstring>
+
 #include "histogram.h"
 #include "colors.h"
 #include "svg.h"
 
 
+//Ввод чисел
 
 vector<double> input_numbers
 (size_t count)
@@ -21,10 +22,11 @@ vector<double> input_numbers
 }
 
 
+//Нахождение количества чисел в каждой корзине
 
-void make_histogram(vector<double> numbers,double min,double max,
-                    vector<size_t>& bins,
-                    size_t number_count,size_t bin_count)
+void make_histogram
+(vector<double> numbers,double min,double max,
+ vector<size_t>& bins,size_t number_count,size_t bin_count)
 {
     size_t bin_index=0;
 
@@ -37,6 +39,7 @@ void make_histogram(vector<double> numbers,double min,double max,
         continue;
         }
 
+    //Расчёт номера корзины для каждого числа с учетом min/max
     bin_index = floor((x - min) * bin_count / (max - min));
     (bins[bin_index])++;
     }
@@ -51,12 +54,13 @@ if(min==max)
 }
 
 
+//Вывод гистограммы
 
 void show_histogram_svg
 (const vector<size_t>& bins,size_t bin_count,
  const vector<string>& stroke,const vector<string>& fill )
 {
-
+//Константы
 const auto IMAGE_WIDTH = 400;
 const auto IMAGE_HEIGHT = 300;
 const auto TEXT_LEFT = 20;
@@ -65,25 +69,32 @@ const auto TEXT_WIDTH = 50;
 const auto BIN_HEIGHT = 30;
 const auto BLOCK_WIDTH = 50;
 
+
+//Гистограмма
+//              Инициализация svg
     svg_begin(IMAGE_WIDTH, IMAGE_HEIGHT);
 
 
     double top = 0;
 for (size_t i=0;i<bin_count;i++)
     {
-
+    // Ввод констант и нужных переменных
     const size_t SCREEN_WIDTH = 400;
     const size_t MAX_in_BIN = SCREEN_WIDTH-TEXT_WIDTH;
 
     size_t max_count = 0;
 
+    //Нахождение максимального значения по корзинам
         if (bins[i] > max_count)
         {
             max_count = bins[i];
         }
 
+    //Проверка необходимости масштабирования
     const bool scaling_needed = max_count > (size_t)floor(MAX_in_BIN/BLOCK_WIDTH);
 
+
+    //Масштабирование
     size_t height = bins[i];
         if (scaling_needed)
         {
@@ -93,12 +104,18 @@ for (size_t i=0;i<bin_count;i++)
 
     double bin_width = BLOCK_WIDTH * height;
 
+    //Гистограмма
+    //              Вывод текста
     svg_text(TEXT_LEFT, top + TEXT_BASELINE, to_string(bins[i]));
+
+    //Гистограмма
+    //              Вывод собственно гистограмм
     svg_rect(TEXT_WIDTH, top, bin_width, BIN_HEIGHT,stroke[i],fill[i]);
     top += BIN_HEIGHT;
     }
 
-
+//Гистограмма
+//              Конец вывода
     svg_end();
 
 
@@ -108,8 +125,7 @@ for (size_t i=0;i<bin_count;i++)
 
 int main()
 {
-    srand(time(0));
-
+//Ввод исходных данных
 
 size_t number_count;
 cerr << "Enter number count: ";
@@ -120,29 +136,38 @@ size_t bin_count;
 cerr << "Enter bin count: ";
 cin >> bin_count;
 
-
+//Ввод исходных данных
+//                        Ввод чисел
 const auto numbers = input_numbers(number_count);
 
 
+//Ввод исходных данных
+//                        Ввод цветов
 vector<string> stroke(bin_count,"red");
 vector<string> fill(bin_count,"#ffeeee");
-
-
 
 input_colors(stroke,fill,bin_count);
 
 
+
+//Обработка данных
 vector<size_t> bins(bin_count, 0);
 
 
+//Обработка данных
+//                  Нахождение минимального, максимального значений
 double min;
 double max;
+
 find_minmax(numbers,min,max);
 
 
+//Обработка данных
+//                  Нахождение количества чисел в каждой корзине
 make_histogram(numbers,min,max,bins,number_count,bin_count);
 
-
+//Обработка данных
+//                  Вывод гистограммы
 show_histogram_svg(bins,bin_count,stroke,fill);
 
 
