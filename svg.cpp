@@ -22,7 +22,8 @@ void svg_text
 void svg_rect(double x, double y, double width, double height,
         string stroke , string fill)
 {
-    cout<< "<rect x = '"<<x<<"' y = '"<<y<<"' width= '"<<width<<"' height= '"<<height<<"' stroke= '"<<stroke<<"' fill= '"<<fill<<"'/> ";
+    cout<< "<rect x = '"<<x<<"' y = '"<<y<<"' width= '"<<width<<"' height= '"
+    <<height<<"' stroke= '"<<stroke<<"' fill= '"<<fill<<"'/> ";
 }
 
 
