@@ -61,13 +61,13 @@ void show_histogram_svg
  const vector<string>& stroke,const vector<string>& fill )
 {
 //Константы
-const auto IMAGE_WIDTH = 400;
+const auto IMAGE_WIDTH = 800;
 const auto IMAGE_HEIGHT = 300;
 const auto TEXT_LEFT = 20;
 const auto TEXT_BASELINE = 20;
 const auto TEXT_WIDTH = 50;
 const auto BIN_HEIGHT = 30;
-const auto BLOCK_WIDTH = 50;
+const auto BLOCK_WIDTH = 5;
 
 
 //Гистограмма
@@ -79,7 +79,7 @@ const auto BLOCK_WIDTH = 50;
 for (size_t i=0;i<bin_count;i++)
     {
     // Ввод констант и нужных переменных
-    const size_t SCREEN_WIDTH = 400;
+    const size_t SCREEN_WIDTH = 800;
     const size_t MAX_in_BIN = SCREEN_WIDTH-TEXT_WIDTH;
 
     size_t max_count = 0;
