@@ -10,12 +10,12 @@
 //¬вод чисел
 
 vector<double> input_numbers
-(size_t count)
+(istream& in,size_t count)
 {
     vector<double> result(count);
     for (size_t i = 0; i < count; i++)
     {
-        cin >> result[i];
+        in >> result[i];
     }
     return result;
 }
@@ -152,7 +152,7 @@ cin >> bin_count;
 
 //¬вод исходных данных
 //                        ¬вод чисел
-const auto numbers = input_numbers(number_count);
+const auto numbers = input_numbers(cin,number_count);
 
 
 //¬вод исходных данных
