@@ -3,7 +3,9 @@
 /First_Lab.sublime-workspace
 /bin
 /obj
-/lab03-test.depend
-/lab03-test.layout
-/lab03-svgtest/lab03-svgtest.layout
-/lab03-svgtest/lab03-svgtest.depend
+/lab03-test.*
+/lab03-svgtest
+/colors.*
+/test.cpp
+/Sazonov_lab03.docx
+/histogram.*
