@@ -4,7 +4,6 @@
 #include <cstring>
 
 #include "histogram.h"
-#include "colors.h"
 #include "svg.h"
 
 
@@ -67,39 +66,54 @@ const auto TEXT_LEFT = 20;
 const auto TEXT_BASELINE = 20;
 const auto TEXT_WIDTH = 50;
 const auto BIN_HEIGHT = 30;
-const auto BLOCK_WIDTH = 5;
+const auto BLOCK_WIDTH = 50;
 
 
 //Гистограмма
 //              Инициализация svg
     svg_begin(IMAGE_WIDTH, IMAGE_HEIGHT);
 
+size_t max_count = 0;
+
+    //Нахождение максимального значения по корзинам
+for(size_t i=0;i<bin_count;i++)
+{
+
+    if (bins[i] > max_count)
+        {
+            max_count = bins[i];
+        }
+}
+
 
     double top = 0;
+
+
 for (size_t i=0;i<bin_count;i++)
     {
     // Ввод констант и нужных переменных
     const size_t SCREEN_WIDTH = 800;
     const size_t MAX_in_BIN = SCREEN_WIDTH-TEXT_WIDTH;
 
-    size_t max_count = 0;
 
-    //Нахождение максимального значения по корзинам
-        if (bins[i] > max_count)
-        {
-            max_count = bins[i];
-        }
+
 
     //Проверка необходимости масштабирования
     const bool scaling_needed = max_count > (size_t)floor(MAX_in_BIN/BLOCK_WIDTH);
 
 
     //Масштабирование
-    size_t height = bins[i];
+    size_t height;
+
         if (scaling_needed)
         {
             const double scaling_factor = (double)MAX_in_BIN/BLOCK_WIDTH / max_count;
-            height = (size_t)(bins[i] * scaling_factor);
+
+            height = (bins[i] * scaling_factor);
+        }
+        else
+        {
+            height = bins[i];
         }
 
     double bin_width = BLOCK_WIDTH * height;
@@ -145,9 +159,6 @@ const auto numbers = input_numbers(number_count);
 //                        Ввод цветов
 vector<string> stroke(bin_count,"red");
 vector<string> fill(bin_count,"#ffeeee");
-
-input_colors(stroke,fill,bin_count);
-
 
 
 //Обработка данных
