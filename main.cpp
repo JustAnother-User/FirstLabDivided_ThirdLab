@@ -20,6 +20,34 @@ vector<double> input_numbers
     return result;
 }
 
+//Структура
+struct Input
+{
+    vector<double> numbers;
+    size_t bin_count;
+    size_t interval;
+};
+
+
+//Реализация структуры
+Input
+read_input(istream& in) {
+    Input data;
+
+    cerr << "Enter number count: ";
+    size_t number_count;
+    in >> number_count;
+
+    cerr << "Enter numbers: ";
+    data.numbers = input_numbers(in, number_count);
+
+    size_t bin_count;
+    cerr << "Enter bin count: ";
+    in >> bin_count;
+
+    return data;
+}
+
 
 //Нахождение количества чисел в каждой корзине
 
@@ -153,6 +181,9 @@ cin >> bin_count;
 //Ввод исходных данных
 //                        Ввод чисел
 const auto numbers = input_numbers(cin,number_count);
+
+
+
 
 
 //Ввод исходных данных
